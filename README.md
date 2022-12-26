@@ -1,85 +1,88 @@
+# Clock Timmer
+Clock Timmer is a Python library that provides a tool for logging the time and number of calls of a function in Python. It can be used as a decorator or context manager, allowing you to log the time and number of calls of a function or block of code without modifying any lines of code within the function or block.
 
-# Python Project Template
+Installation
+To install Clock Timmer, use the following command:
+```commandline
+pip install clock-logger
+```
+# Usage
+## As a decorator
+To use Clock Timmer as a decorator, you can use it like this:
 
-A low dependency and really simple to start project template for Python Projects.
+```python
+from clock_timer import ClockLogger
 
-See also 
-- [Flask-Project-Template](https://github.com/rochacbruno/flask-project-template/) for a full feature Flask project including database, API, admin interface, etc.
-- [FastAPI-Project-Template](https://github.com/rochacbruno/fastapi-project-template/) The base to start an openapi project featuring: SQLModel, Typer, FastAPI, JWT Token Auth, Interactive Shell, Management Commands.
+logger = ClockLogger()
 
-### HOW TO USE THIS TEMPLATE
+@logger
+def my_function():
+    # code of the function
+```
+After using the decorator, you can access the time and number of calls logs of the function by accessing the log attribute of the Clock Timmer object. For example, to get the number of calls and total time elapsed of the my_function, you can do the following:
 
-> **DO NOT FORK** this is meant to be used from **[Use this template](https://github.com/rochacbruno/python-project-template/generate)** feature.
+```python
+print(logger.log['my_function'])
+```
+## As a context manager
+To use Clock Timmer as a context manager, you can use it like this:
 
-1. Click on **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**
-3. Give a name to your project  
-   (e.g. `my_awesome_project` recommendation is to use all lowercase and underscores separation for repo names.)
-3. Wait until the first run of CI finishes  
-   (Github Actions will process the template and commit to your new repo)
-4. If you want [codecov](https://about.codecov.io/sign-up/) Reports and Automatic Release to [PyPI](https://pypi.org)  
-  On the new repository `settings->secrets` add your `PYPI_API_TOKEN` and `CODECOV_TOKEN` (get the tokens on respective websites)
-4. Read the file [CONTRIBUTING.md](CONTRIBUTING.md)
-5. Then clone your new project and happy coding!
+```python
+from clock_timer import ClockLogger
 
-> **NOTE**: **WAIT** until first CI run on github actions before cloning your new project.
+with ClockLogger() as logger:
+    # code of the block
 
-### What is included on this template?
+print(logger.elapsed)
+```
+After using the context manager, you can access the total time elapsed by accessing the elapsed attribute of the Clock Timmer object.
 
-- 🖼️ Templates for starting multiple application types:
-  * **Basic low dependency** Python program (default) [use this template](https://github.com/rochacbruno/python-project-template/generate)
-  * **Flask** with database, admin interface, restapi and authentication [use this template](https://github.com/rochacbruno/flask-project-template/generate).
-  **or Run `make init` after cloning to generate a new project based on a template.**
-- 📦 A basic [setup.py](setup.py) file to provide installation, packaging and distribution for your project.  
-  Template uses setuptools because it's the de-facto standard for Python packages, you can run `make switch-to-poetry` later if you want.
-- 🤖 A [Makefile](Makefile) with the most useful commands to install, test, lint, format and release your project.
-- 📃 Documentation structure using [mkdocs](http://www.mkdocs.org)
-- 💬 Auto generation of change log using **gitchangelog** to keep a HISTORY.md file automatically based on your commit history on every release.
-- 🐋 A simple [Containerfile](Containerfile) to build a container image for your project.  
-  `Containerfile` is a more open standard for building container images than Dockerfile, you can use buildah or docker with this file.
-- 🧪 Testing structure using [pytest](https://docs.pytest.org/en/latest/)
-- ✅ Code linting using [flake8](https://flake8.pycqa.org/en/latest/)
-- 📊 Code coverage reports using [codecov](https://about.codecov.io/sign-up/)
-- 🛳️ Automatic release to [PyPI](https://pypi.org) using [twine](https://twine.readthedocs.io/en/latest/) and github actions.
-- 🎯 Entry points to execute your program using `python -m <clock_timer>` or `$ clock_timer` with basic CLI argument parsing.
-- 🔄 Continuous integration using [Github Actions](.github/workflows/) with jobs to lint, test and release your project on Linux, Mac and Windows environments.
+# Example
+Here is an example of using Clock Timmer as a decorator and a context manager:
 
-> Curious about architectural decisions on this template? read [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md)  
-> If you want to contribute to this template please open an [issue](https://github.com/rochacbruno/python-project-template/issues) or fork and send a PULL REQUEST.
+```python
+from clock_timer import ClockLogger
+import time
 
-[❤️ Sponsor this project](https://github.com/sponsors/rochacbruno/)
+# Using Clock Timmer as a decorator
+logger = ClockLogger()
 
-<!--  DELETE THE LINES ABOVE THIS AND WRITE YOUR PROJECT README BELOW -->
+@logger
+def my_function():
+    time.sleep(1)
 
----
-# clock_timer
+my_function()
+my_function()
 
-[![codecov](https://codecov.io/gh/maycuatroi/clock_timer/branch/main/graph/badge.svg?token=clock_timer_token_here)](https://codecov.io/gh/maycuatroi/clock_timer)
-[![CI](https://github.com/maycuatroi/clock_timer/actions/workflows/main.yml/badge.svg)](https://github.com/maycuatroi/clock_timer/actions/workflows/main.yml)
-
-Awesome clock_timer created by maycuatroi
-
-## Install it from PyPI
-
-```bash
-pip install clock_timer
+print(logger.log['my_function'])
+```
+the output
+```
+my_function was called 1 times, total time elapsed: 1.005031s
+my_function was called 2 times, total time elapsed: 2.005123s
+[2, 2.0051226250000003]
 ```
 
-## Usage
+## Using Clock Timmer as a context manager
 
-```py
-from clock_timer import BaseClass
-from clock_timer import base_function
+```python
+import time
 
-BaseClass().base_method()
-base_function()
+from clock_timer import ClockLogger
+
+with ClockLogger() as logger:
+    time.sleep(1)
+
+print(logger.elapsed)
 ```
+The output of this example will be:
 
-```bash
-$ python -m clock_timer
-#or
-$ clock_timer
 ```
+Total time elapsed: 1.003622s
+1.003622042
+```
+# Contributing
+We welcome contributions to Clock Timmer. If you have any ideas for improvements or want to report a bug, please open an issue or submit a pull request.
 
-## Development
-
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+# License
+Clock Timmer is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

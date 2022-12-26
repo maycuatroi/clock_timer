@@ -36,11 +36,9 @@ setup(
     url="https://github.com/maycuatroi/clock_timer/",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    author="maycuatroi",
-    packages=find_packages(exclude=["tests", ".github"]),
+    author="Nguyen Anh Binh",
+    packages=find_packages(exclude=["tests", ".github",'examples']),
     install_requires=read_requirements("requirements.txt"),
-    entry_points={
-        "console_scripts": ["clock_timer = clock_timer.__main__:main"]
-    },
+    entry_points={"console_scripts": ["clock_timer = clock_timer.__main__:main"]},
     extras_require={"test": read_requirements("requirements-test.txt")},
 )
