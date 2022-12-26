@@ -1,4 +1,7 @@
 # Clock Timmer
+
+[![CI](https://github.com/maycuatroi/clock_timer/actions/workflows/main.yml/badge.svg)](https://github.com/maycuatroi/clock_timer/actions/workflows/main.yml)
+
 Clock Timmer is a Python library that provides a tool for logging the time and number of calls of a function in Python. It can be used as a decorator or context manager, allowing you to log the time and number of calls of a function or block of code without modifying any lines of code within the function or block.
 
 Installation
