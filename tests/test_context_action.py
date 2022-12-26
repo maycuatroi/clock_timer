@@ -7,4 +7,4 @@ def test_context_action():
     """Test Context Action"""
     with ClockLogger() as logger:
         time.sleep(1)
-    assert logger.elapsed > 1
+    assert logger.elapsed > 0

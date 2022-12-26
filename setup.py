@@ -37,7 +37,7 @@ setup(
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="Nguyen Anh Binh",
-    packages=find_packages(exclude=["tests", ".github",'examples']),
+    packages=find_packages(exclude=["tests", ".github", "examples"]),
     install_requires=read_requirements("requirements.txt"),
     entry_points={"console_scripts": ["clock_timer = clock_timer.__main__:main"]},
     extras_require={"test": read_requirements("requirements-test.txt")},
