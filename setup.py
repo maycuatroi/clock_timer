@@ -30,7 +30,7 @@ def read_requirements(path):
 
 
 setup(
-    name="clock_timer",
+    name="python-clock-timer",
     version=read("clock_timer", "VERSION"),
     description="Awesome clock_timer created by maycuatroi",
     url="https://github.com/maycuatroi/clock_timer/",

@@ -4,7 +4,7 @@ Clock Timmer is a Python library that provides a tool for logging the time and n
 Installation
 To install Clock Timmer, use the following command:
 ```commandline
-pip install clock-logger
+pip install python-clock-timer
 ```
 # Usage
 ## As a decorator
