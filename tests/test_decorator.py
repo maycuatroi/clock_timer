@@ -14,7 +14,7 @@ def test_decorator():
     my_function()
     my_function()
     my_function_logs = logger.log["my_function"]
-    time_called = my_function_logs[0]
-    time_elapsed = my_function_logs[1]
+    time_called = len(my_function_logs)
+    time_elapsed = sum([log[2] for log in my_function_logs])
     assert time_called == 2
     assert time_elapsed > 1
