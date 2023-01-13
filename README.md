@@ -34,9 +34,9 @@ To use Clock Timmer as a context manager, you can use it like this:
 from clock_timer import ClockLogger
 
 with ClockLogger() as logger:
-    # code of the block
+# code of the block
 
-print(logger.elapsed)
+print(logger.total_elapsed)
 ```
 After using the context manager, you can access the total time elapsed by accessing the elapsed attribute of the Clock Timmer object.
 
@@ -76,7 +76,7 @@ from clock_timer import ClockLogger
 with ClockLogger() as logger:
     time.sleep(1)
 
-print(logger.elapsed)
+print(logger.total_elapsed)
 ```
 The output of this example will be:
 

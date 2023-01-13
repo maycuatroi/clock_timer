@@ -11,7 +11,7 @@ class ClockLogger:
         self.log_callback = log_callback
         self.start = None
         self.end = None
-        self.elapsed = None
+        self.total_elapsed = 0
 
     def __call__(self, func):
         def wrapper(*args, **kwargs):
@@ -19,6 +19,7 @@ class ClockLogger:
             result = func(*args, **kwargs)
             end = time.perf_counter()
             elapsed = end - start
+            self.total_elapsed += elapsed
             function_name = func.__name__
             args = [str(arg) for arg in args]
             kwargs = [f"{key}={value}" for key, value in kwargs.items()]
@@ -38,6 +39,7 @@ class ClockLogger:
                     function_name=function_name,
                     call_count=call_count,
                     elapsed_time=elapsed,
+                    total_elapsed_time=self.total_elapsed,
                     function_args=args,
                     function_kwargs=kwargs,
                 )
@@ -52,8 +54,8 @@ class ClockLogger:
 
     def __exit__(self, *args):
         self.end = time.perf_counter()
-        self.elapsed = self.end - self.start
-        self.logger_function(f"Total time elapsed: {self.elapsed:.6f}s")
+        self.total_elapsed = self.end - self.start
+        self.logger_function(f"Total time elapsed: {self.total_elapsed:.6f}s")
 
     def __str__(self):
         if self.log:
@@ -62,4 +64,4 @@ class ClockLogger:
                     f"{key} was called {value[0]} times, total time elapsed: {value[1]:.6f}s"
                 )
         else:
-            self.logger_function(f"Total time elapsed: {self.elapsed:.6f}s")
+            self.logger_function(f"Total time elapsed: {self.total_elapsed:.6f}s")
