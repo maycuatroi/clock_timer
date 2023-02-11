@@ -1,4 +1,10 @@
 import time
+df_class =None
+try:
+    import pandas as pd
+    df_class = pd.DataFrame
+except ImportError:
+    pass
 
 
 class ClockLogger:
@@ -22,7 +28,21 @@ class ClockLogger:
             self.total_elapsed += elapsed
             function_name = func.__name__
             args = [str(arg) for arg in args]
-            kwargs = [f"{key}={value}" for key, value in kwargs.items()]
+            for i, arg in enumerate(args):
+                # is pandas object
+                if df_class:
+                    if isinstance(arg, df_class):
+                        args[i] = f"DataFrame{arg.shape}"
+                elif arg.__class__.__name__ == "DataFrame":
+                    args[i] = f"DataFrame{arg.shape}"
+            kwargs_list = []
+            for key, value in kwargs.items():
+                if df_class:
+                    if isinstance(value, df_class):
+                        value = f"DataFrame({value.shape})"
+                elif value.__class__.__name__ == "DataFrame":
+                    value = f"DataFrame{value.shape}"
+                kwargs_list.append(f"{key}={value}")
             args = ", ".join(args)
             kwargs = ", ".join(kwargs)
 
